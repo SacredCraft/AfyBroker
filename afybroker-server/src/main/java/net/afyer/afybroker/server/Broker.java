@@ -1,6 +1,7 @@
 package net.afyer.afybroker.server;
 
 import com.alipay.remoting.rpc.RpcServer;
+import lombok.Getter;
 import net.afyer.afybroker.server.plugin.PluginManager;
 import net.afyer.afybroker.server.proxy.BrokerClientProxyManager;
 import net.afyer.afybroker.server.proxy.BrokerPlayer;
@@ -18,11 +19,19 @@ import java.util.concurrent.Executor;
  */
 public class Broker {
 
+    /**
+     * -- GETTER --
+     * 获取 broker 服务端
+     */
+    @Getter
     private static BrokerServer server;
 
-    private Broker() {}
+    private Broker() {
+    }
 
-    /** 设置 broker 服务端 */
+    /**
+     * 设置 broker 服务端
+     */
     public static void setServer(BrokerServer brokerServer) {
         if (Broker.server != null) {
             throw new UnsupportedOperationException("Cannot redefine singleton instance");
@@ -30,12 +39,9 @@ public class Broker {
         Broker.server = brokerServer;
     }
 
-    /** 获取 broker 服务端 */
-    public static BrokerServer getServer() {
-        return server;
-    }
-
-    /** 获取 rpc 服务端 */
+    /**
+     * 获取 rpc 服务端
+     */
     public static RpcServer getRpcServer() {
         return server.getRpcServer();
     }

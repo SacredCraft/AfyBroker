@@ -102,8 +102,8 @@ public class BrokerServerBuilder {
     /**
      * 注册连接器
      *
-     * @param type       type
-     * @param processor  processor
+     * @param type      type
+     * @param processor processor
      * @return this
      */
     public BrokerServerBuilder addConnectionEventProcessor(ConnectionEventType type, ConnectionEventProcessor processor) {
@@ -147,7 +147,4 @@ public class BrokerServerBuilder {
                 .registerUserProcessor(new KickPlayerBrokerProcessor());
 
     }
-
-
-
 }

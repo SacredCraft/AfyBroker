@@ -2,6 +2,7 @@ package net.afyer.afybroker.bukkit;
 
 import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import net.afyer.afybroker.bukkit.command.BroadcastChatCommand;
 import net.afyer.afybroker.bukkit.listener.PlayerListener;
@@ -22,7 +23,17 @@ import java.util.UUID;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class AfyBroker extends JavaPlugin {
 
+    @Getter
+    private static AfyBroker instance;
     private BrokerClient brokerClient;
+    @Getter
+    @Setter
+    private boolean isConnected = false;
+
+    @Override
+    public void onLoad() {
+        instance = this;
+    }
 
     @Override
     public void onEnable() {
@@ -49,10 +60,10 @@ public class AfyBroker extends JavaPlugin {
 
             brokerClient.startup();
             brokerClient.ping();
+            isConnected = true;
         } catch (Exception e) {
             getLogger().severe("Broker client initialization failed!");
             e.printStackTrace();
-            getServer().shutdown();
         } finally {
             Thread.currentThread().setContextClassLoader(oldLoader);
         }
@@ -73,5 +84,4 @@ public class AfyBroker extends JavaPlugin {
     private void registerListeners() {
         new PlayerListener(this).register(this);
     }
-
 }
